@@ -25,12 +25,13 @@ class listCustomers extends React.Component {
         fetch('http://localhost:8080/rest/listCustomers/',
 
           {
+               credentials: 'include',
                method: 'GET',
                //headers: myHeaders,
                mode: 'cors',
                //cache: 'default'
                //credentials: 'include'
-               credentials: 'same-origin',
+               //credentials: 'same-origin',
 
           })
           .then(response => response.json())

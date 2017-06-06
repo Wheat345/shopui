@@ -25,6 +25,7 @@ class Login extends React.Component {
     formBody = formBody.join("&");
 
     fetch('http://localhost:8080/login', {
+        credentials: 'include',
         method: 'POST',
         //mode: 'no-cors',
         mode: 'cors',
@@ -35,7 +36,7 @@ class Login extends React.Component {
         'Content-Type': 'application/x-www-form-urlencoded'
         },
         //credentials: 'include',
-        credentials: 'same-origin',
+        //credentials: 'same-origin',
         body: formBody
         //body: JSON.stringify({
         //  username: self.refs.username.value,
