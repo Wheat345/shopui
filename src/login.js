@@ -71,7 +71,7 @@ class Login extends React.Component {
 
         }
       }).then(function(body) {
-        //window.location.href = '/listCustomers';
+        window.location.href = '/menu';
       });
       // .then(function (data) {
       //   console.log('Request succeeded with JSON response', data);

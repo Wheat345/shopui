@@ -11,6 +11,7 @@ import ListProducts from './listProducts.js';
 import AddTransaction from './addTransaction.js';
 import ListTransactions from './listTransactions.js';
 import Login from './login.js';
+import Logout from './logout.js';
 
 const Menu = () => (
   <Router>
@@ -21,7 +22,8 @@ const Menu = () => (
       <a href="/listProducts">List Products</a>&nbsp;&nbsp;
       <a href="/addTransaction">Add Transaction</a>&nbsp;&nbsp;
       <a href="/listTransactions">List Transactions</a>&nbsp;&nbsp;
-      <a href="/login">Login</a>
+      <a href="/login">Login</a>&nbsp;&nbsp;
+      <a href="/logout">Logout</a>
       <Route exact path="/createCustomer" component={CreateCustomer}/>
       <Route path="/listCustomers" component={ListCustomers}/>
       <Route path="/addProduct" component={AddProduct}/>
@@ -29,6 +31,7 @@ const Menu = () => (
       <Route path="/addTransaction" component={AddTransaction}/>
       <Route path="/listTransactions" component={ListTransactions}/>
       <Route path="/login" component={Login}/>
+      <Route path="/logout" component={Logout}/>
     </div>
   </Router>
 )
