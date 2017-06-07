@@ -47,15 +47,13 @@ class listCustomers extends React.Component {
   render() {
     return (
       <BootstrapTable data={ this.state.data } >
-          <TableHeaderColumn dataField={"id"} isKey={true} >ID</TableHeaderColumn>
-          <TableHeaderColumn dataField={"customerFirstName"}>First Name</TableHeaderColumn>
-          <TableHeaderColumn dataField={"customerLastName"}>Last Name</TableHeaderColumn>
-          <TableHeaderColumn dataField={"customerNickName"}>other name</TableHeaderColumn>
-          <TableHeaderColumn dataField={"customerAddress"}>where he/she is</TableHeaderColumn>
-          <TableHeaderColumn dataField={"customerGender"} >Gender</TableHeaderColumn>
-          <TableHeaderColumn dataField={"customerStatus"} >Status</TableHeaderColumn>
-          <TableHeaderColumn dataField={"customerType"} >type</TableHeaderColumn>
-          <TableHeaderColumn dataField={"customerNote"}>some thing special</TableHeaderColumn>
+          <TableHeaderColumn dataField={"customerid"} isKey={true} >customerid</TableHeaderColumn>
+          <TableHeaderColumn dataField={"email"}>email</TableHeaderColumn>
+          <TableHeaderColumn dataField={"gender"}>gender</TableHeaderColumn>
+          <TableHeaderColumn dataField={"location"}>location</TableHeaderColumn>
+          <TableHeaderColumn dataField={"status"}>status</TableHeaderColumn>
+          <TableHeaderColumn dataField={"type"} >type</TableHeaderColumn>
+          <TableHeaderColumn dataField={"description"} >description</TableHeaderColumn>
       </BootstrapTable>
     );
   }

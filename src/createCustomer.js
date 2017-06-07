@@ -12,20 +12,27 @@ class CreateCustomer extends React.Component {
     var self = this;
 
     fetch('http://localhost:8080/rest/create', {
+        credentials: 'include',
         method: 'POST',
         mode: 'cors',
         headers:{
-        'Access-Control-Allow-Origin':'*',
+        //'Access-Control-Allow-Origin':'*',
         'Accept': 'application/json',
+        //'Content-Type': 'application/x-www-form-urlencoded'
         'Content-Type': 'application/json'
         },
 
 
         body: JSON.stringify({
-          customerFirstName: self.refs.name.value,
-          customerLastName: self.refs.email.value,
+          firstname: self.refs.firstname.value,
+          lastname: self.refs.lastname.value,
+          email: self.refs.email.value,
+          gender: self.refs.gender.value,
+          location: self.refs.location.value,
+          status: self.refs.status.value,
+          type: self.refs.type.value,
+          description: self.refs.description.value,
         }),
-
       })
       .then(function(response) {
         return response.json()
@@ -37,8 +44,14 @@ class CreateCustomer extends React.Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-        <input type="text" placeholder="Name" ref="name"/><br />
-        <input type="text" placeholder="Email" ref="email"/><br />
+        <input type="text" placeholder="firstname" ref="firstname"/><br />
+          <input type="text" placeholder="lastname" ref="lastname"/><br />
+        <input type="text" placeholder="email" ref="email"/><br />
+          <input type="text" placeholder="gender" ref="gender"/><br />
+            <input type="text" placeholder="location" ref="location"/><br />
+              <input type="text" placeholder="status" ref="status"/><br />
+                <input type="text" placeholder="type" ref="type"/><br />
+                  <input type="text" placeholder="description" ref="description"/><br />
         <input type="submit" />
       </form>
     );
