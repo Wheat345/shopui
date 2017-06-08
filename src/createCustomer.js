@@ -11,7 +11,7 @@ class CreateCustomer extends React.Component {
     e.preventDefault();
     var self = this;
 
-    fetch('http://localhost:8080/rest/create', {
+    fetch('http://localhost:8080/rest/createcustomer', {
         credentials: 'include',
         method: 'POST',
         mode: 'cors',
