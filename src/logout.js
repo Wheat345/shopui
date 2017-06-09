@@ -20,7 +20,7 @@ class Logout extends React.Component {
         //const base64 = require('base-64');
         //var headers = new Headers();
         //headers.append("Authorization", "Basic " + base64.encode("naveen:naveen"));
-        fetch('http://localhost:8080/rest/logout/',
+        fetch('http://localhost:8080/logout/',
 
           {
                credentials: 'include',
@@ -46,7 +46,7 @@ class Logout extends React.Component {
       }
 
   render() {
-    return <h1>Hello</h1>;
+    return <h1></h1>;
   }
 
 }
