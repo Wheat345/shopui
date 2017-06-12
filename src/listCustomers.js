@@ -47,7 +47,7 @@ class listCustomers extends React.Component {
   render() {
     return (
       <BootstrapTable data={ this.state.data } >
-          <TableHeaderColumn dataField={"customerid"} isKey={true} >customerid</TableHeaderColumn>
+          <TableHeaderColumn dataField={"customerid"} isKey={true} >ID</TableHeaderColumn>
           <TableHeaderColumn dataField={"email"}>email</TableHeaderColumn>
           <TableHeaderColumn dataField={"gender"}>gender</TableHeaderColumn>
           <TableHeaderColumn dataField={"location"}>location</TableHeaderColumn>
