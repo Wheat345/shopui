@@ -43,17 +43,21 @@ class CreateCustomer extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        <input type="text" placeholder="firstname" ref="firstname"/><br />
-          <input type="text" placeholder="lastname" ref="lastname"/><br />
-        <input type="text" placeholder="email" ref="email"/><br />
-          <input type="text" placeholder="gender" ref="gender"/><br />
-            <input type="text" placeholder="location" ref="location"/><br />
-              <input type="text" placeholder="status" ref="status"/><br />
-                <input type="text" placeholder="type" ref="type"/><br />
-                  <input type="text" placeholder="description" ref="description"/><br />
-        <input type="submit" />
-      </form>
+      <div>
+        <form className="navbar-form navbar-left" onSubmit={this.onSubmit}>
+          <div className="form-group">
+              <input type="text" className="form-control" placeholder="firstname" ref="firstname"/><br />
+              <input type="text" className="form-control" placeholder="lastname" ref="lastname"/><br />
+              <input type="text" className="form-control" placeholder="email" ref="email"/><br />
+              <input type="text" className="form-control" placeholder="gender" ref="gender"/><br />
+              <input type="text" className="form-control" placeholder="location" ref="location"/><br />
+              <input type="text" className="form-control" placeholder="status" ref="status"/><br />
+              <input type="text" className="form-control" placeholder="type" ref="type"/><br />
+              <input type="text" className="form-control" placeholder="description" ref="description"/><br />
+              <button type="submit" className="btn btn-default">Submit</button>
+          </div>
+        </form>
+      </div>
     );
   }
 }
