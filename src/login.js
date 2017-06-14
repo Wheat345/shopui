@@ -44,35 +44,41 @@ class Login extends React.Component {
         //}),
 
       })
-      .then(function(response) {
+      .then(response=> {
 
         if (response.ok) {
           console.log("ok");
             console.log("response status : " +response.status );
-
-
-          var contentType = response.headers.get("content-type");
-            console.log("response headers content-type: " +contentType );
-          if(contentType && contentType.indexOf("application/json") !== -1) {
-            return response.json().then(function(json) {
-              // process your JSON further
-              console.log("response json : " +json );
-
-              //var headers = response.getAllResponseHeaders().toLowerCase();
-              //document.cookies = 'JSESSIONID=523E9D99A5B6B208CA8623EE1BF352D4; Path=/';
-              console.log(response.headers.get('set-cookies'));
-            });
-          } else {
-            console.log("Oops, we haven't got JSON!");
-          }
-          return response.json()
+          //
+          //
+          // var contentType = response.headers.get("content-type");
+          //   console.log("response headers content-type: " +contentType );
+          // if(contentType && contentType.indexOf("application/json") !== -1) {
+          //   return response.json().then(function(json) {
+          //     // process your JSON further
+          //     console.log("response json : " +json );
+          //
+          //     //var headers = response.getAllResponseHeaders().toLowerCase();
+          //     //document.cookies = 'JSESSIONID=523E9D99A5B6B208CA8623EE1BF352D4; Path=/';
+          //     console.log(response.headers.get('set-cookies'));
+          //   });
+          // } else {
+          //   console.log("Oops, we haven't got JSON!");
+          // }
+          //return response.json()
+          window.location.href = '/menu';
         } else {
           console.log("It is not ok");
 
+          this.setState({
+            error : 'Wrong username or password.'
+          });
+
         }
-      }).then(function(body) {
-        window.location.href = '/menu';
-      });
+      })
+      // .then(function(body) {
+      //   window.location.href = '/menu';
+      // });
       // .then(function (data) {
       //   console.log('Request succeeded with JSON response', data);
       // })
@@ -95,11 +101,16 @@ class Login extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        <input type="text" placeholder="Username" ref="username"/><br />
-        <input type="text" placeholder="Password" ref="password"/><br />
-        <input type="submit" />
-      </form>
+      <div>
+        <form className="navbar-form navbar-left" onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label >{this.state.error}</label><br />
+            <input type="text" className="form-control" placeholder="Username" ref="username"/><br />
+            <input type="password" className="form-control" placeholder="Password" ref="password"/><br />
+            <button type="submit" className="btn btn-default">Submit</button>
+          </div>
+        </form>
+      </div>
     );
   }
 }
