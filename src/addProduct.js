@@ -11,23 +11,25 @@ class AddProduct extends React.Component {
     e.preventDefault();
     var self = this;
 
-    fetch('http://localhost:8080/product', {
+    fetch('http://localhost:8080/rest/createproduct', {
+        credentials: 'include',
         method: 'POST',
         mode: 'cors',
         headers:{
-        'Access-Control-Allow-Origin':'*',
+        //'Access-Control-Allow-Origin':'*',
         'Accept': 'application/json',
+        //'Content-Type': 'application/x-www-form-urlencoded'
         'Content-Type': 'application/json'
         },
 
 
         body: JSON.stringify({
-          productName: self.refs.name.value,
-          productType: self.refs.type.value,
-          productSize: self.refs.size.value,
-          productCost: self.refs.cost.value,
-          productSellPrice: self.refs.sellPrice.value,
-          productDescription: self.refs.description.value,
+          name: self.refs.name.value,
+          catalog: self.refs.catalog.value,
+          format: self.refs.format.value,
+          cost: self.refs.cost.value,
+          sellprice: self.refs.sellprice.value,
+          description: self.refs.description.value,
         }),
 
       })
@@ -40,17 +42,19 @@ class AddProduct extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        <input type="text" placeholder="Name" ref="name"/><br />
-        <input type="text" placeholder="Type" ref="type"/><br />
-        <input type="text" placeholder="Size" ref="size"/><br />
-        <input type="text" placeholder="Cost" ref="cost"/><br />
-        <input type="text" placeholder="Sell Price" ref="sellPrice"/><br />
-        <input type="text" placeholder="Description" ref="description"/><br />
-        <input type="text" placeholder="Type" ref="type"/><br />
-        <input type="text" placeholder="Note" ref="note"/><br />
-        <input type="submit" />
-      </form>
+      <div>
+        <form className="navbar-form navbar-left" onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <input type="text" className="form-control" placeholder="name" ref="name"/><br />
+            <input type="text" className="form-control" placeholder="catalog" ref="catalog"/><br />
+            <input type="text" className="form-control" placeholder="format" ref="format"/><br />
+            <input type="text" className="form-control" placeholder="cost" ref="cost"/><br />
+            <input type="text" className="form-control" placeholder="sellprice" ref="sellprice"/><br />
+            <input type="text" className="form-control" placeholder="description" ref="description"/><br />
+            <input type="submit" className="btn btn-default"/>
+          </div>
+        </form>
+      </div>
     );
   }
 }

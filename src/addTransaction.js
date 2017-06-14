@@ -11,24 +11,24 @@ class AddTransaction extends React.Component {
     e.preventDefault();
     var self = this;
 
-    fetch('http://localhost:8080/transaction', {
+    fetch('http://localhost:8080/rest/createtransaction', {
+        credentials: 'include',
         method: 'POST',
         mode: 'cors',
         headers:{
-        'Access-Control-Allow-Origin':'*',
+        //'Access-Control-Allow-Origin':'*',
         'Accept': 'application/json',
+        //'Content-Type': 'application/x-www-form-urlencoded'
         'Content-Type': 'application/json'
         },
 
 
         body: JSON.stringify({
-          customerId: self.refs.customerId.value,
-          productIds: [self.refs.productIds.value],
-          quantity: self.refs.quantity.value,
-          paymentMethod: self.refs.paymentMethod.value,
-          paymentStatus: [self.refs.paymentStatus.value],
-          shippingStatus: [self.refs.shippingStatus.value],
-          note: self.refs.note.value,
+          customerid: self.refs.customerid.value,
+          productids: self.refs.productids.value,
+          created: self.refs.created.value,
+          paymentmethod: self.refs.paymentmethod.value,
+          details: self.refs.details.value,
         }),
 
       })
@@ -41,16 +41,18 @@ class AddTransaction extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        <input type="text" placeholder="customer Id" ref="customerId"/><br />
-        <input type="text" placeholder="product Ids" ref="productIds"/><br />
-        <input type="text" placeholder="Quantity" ref="quantity"/><br />
-        <input type="text" placeholder="Payment Method" ref="paymentMethod"/><br />
-        <input type="text" placeholder="Payment Status" ref="paymentStatus"/><br />
-        <input type="text" placeholder="Shipping Status" ref="shippingStatus"/><br />
-        <input type="text" placeholder="Note" ref="note"/><br />
-        <input type="submit" />
-      </form>
+      <div>
+        <form className="navbar-form navbar-left" onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <input type="text" className="form-control" placeholder="customerid" ref="customerid"/><br />
+            <input type="text" className="form-control" placeholder="productids" ref="productids"/><br />
+            <input type="text" className="form-control" placeholder="created" ref="created"/><br />
+            <input type="text" className="form-control" placeholder="paymentmethod" ref="paymentmethod"/><br />
+            <input type="text" className="form-control" placeholder="details" ref="details"/><br />
+            <input type="submit" className="btn btn-default"/>
+          </div>
+        </form>
+      </div>
     );
   }
 }
