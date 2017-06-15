@@ -4,6 +4,9 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+
+
+import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 //import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 import ListCustomers from './listCustomers.js';
 import CreateCustomer from './createCustomer.js';
@@ -20,15 +23,33 @@ class Menu extends React.Component {
     return (
       <Router>
         <div>
-          <a href="/createCustomer">Create Customer</a>&nbsp;&nbsp;
-          <a href="/listCustomers">List Customers</a>&nbsp;&nbsp;
-          <a href="/addProduct">Add Product</a>&nbsp;&nbsp;
-          <a href="/listProducts">List Products</a>&nbsp;&nbsp;
-          <a href="/addTransaction">Add Transaction</a>&nbsp;&nbsp;
-          <a href="/listTransactions">List Transactions</a>&nbsp;&nbsp;
-          <a href="/register">Register</a>&nbsp;&nbsp;
-          <a href="/login">Login</a>&nbsp;&nbsp;
-          <a href="/logout">Logout</a>
+        <Navbar>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a href="/menu">SHOP</a>
+            </Navbar.Brand>
+          </Navbar.Header>
+          <Nav>
+            <NavDropdown eventKey={1} title="Customer" id="basic-nav-dropdown">
+              <MenuItem eventKey={1.1} href="/createCustomer">New Customer</MenuItem>
+              <MenuItem eventKey={1.2} href="/listCustomers">All Customers</MenuItem>
+            </NavDropdown>
+            <NavDropdown eventKey={2} title="Product" id="basic-nav-dropdown">
+              <MenuItem eventKey={2.1} href="/addProduct">New Product</MenuItem>
+              <MenuItem eventKey={2.2} href="/listProducts">All Products</MenuItem>
+            </NavDropdown>
+            <NavDropdown eventKey={3} title="Transaction" id="basic-nav-dropdown">
+              <MenuItem eventKey={3.1} href="/addTransaction">New Transaction</MenuItem>
+              <MenuItem eventKey={3.2} href="/listTransactions">All Transaction</MenuItem>
+            </NavDropdown>
+            <NavDropdown eventKey={3} title="Account" id="basic-nav-dropdown">
+              <MenuItem eventKey={3.1} href="/register">Register</MenuItem>
+              <MenuItem eventKey={3.2} href="/login">Login</MenuItem>
+              <MenuItem divider />
+              <MenuItem eventKey={3.3} href="/logout">Logout</MenuItem>
+            </NavDropdown>
+          </Nav>
+        </Navbar>
           <Route exact path="/createCustomer" component={CreateCustomer}/>
           <Route path="/listCustomers" component={ListCustomers}/>
           <Route path="/addProduct" component={AddProduct}/>

@@ -9,16 +9,17 @@ import PropTypes from 'prop-types';
 
 import { bsClass, getClassSet, splitBsProps } from './utils/bootstrapUtils';
 import createChainedFunction from './utils/createChainedFunction';
+import CloseButton from './CloseButton';
 
 // TODO: `aria-label` should be `closeLabel`.
 
 var propTypes = {
   /**
-   * The 'aria-label' attribute provides an accessible label for the close
+   * Provides an accessible label for the close
    * button. It is used for Assistive Technology when the label text is not
    * readable.
    */
-  'aria-label': PropTypes.string,
+  closeLabel: PropTypes.string,
 
   /**
    * Specify whether the Component should contain a close button
@@ -34,7 +35,7 @@ var propTypes = {
 };
 
 var defaultProps = {
-  'aria-label': 'Close',
+  closeLabel: 'Close',
   closeButton: false
 };
 
@@ -55,12 +56,12 @@ var ModalHeader = function (_React$Component) {
 
   ModalHeader.prototype.render = function render() {
     var _props = this.props,
-        label = _props['aria-label'],
+        closeLabel = _props.closeLabel,
         closeButton = _props.closeButton,
         onHide = _props.onHide,
         className = _props.className,
         children = _props.children,
-        props = _objectWithoutProperties(_props, ['aria-label', 'closeButton', 'onHide', 'className', 'children']);
+        props = _objectWithoutProperties(_props, ['closeLabel', 'closeButton', 'onHide', 'className', 'children']);
 
     var modal = this.context.$bs_modal;
 
@@ -75,20 +76,10 @@ var ModalHeader = function (_React$Component) {
       _extends({}, elementProps, {
         className: classNames(className, classes)
       }),
-      closeButton && React.createElement(
-        'button',
-        {
-          type: 'button',
-          className: 'close',
-          'aria-label': label,
-          onClick: createChainedFunction(modal && modal.onHide, onHide)
-        },
-        React.createElement(
-          'span',
-          { 'aria-hidden': 'true' },
-          '\xD7'
-        )
-      ),
+      closeButton && React.createElement(CloseButton, {
+        label: closeLabel,
+        onClick: createChainedFunction(modal && modal.onHide, onHide)
+      }),
       children
     );
   };
