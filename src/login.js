@@ -1,9 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { bindActionCreators } from 'redux'
+import {IntlProvider, addLocaleData, FormattedMessage, intlShape, injectIntl, defineMessages } from 'react-intl';
+import { connect } from 'react-redux';
+import { selectedLocale } from './actions/index';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { user: {} };
     this.onSubmit = this.handleSubmit.bind(this);
   }
@@ -38,34 +42,12 @@ class Login extends React.Component {
         //credentials: 'include',
         //credentials: 'same-origin',
         body: formBody
-        //body: JSON.stringify({
-        //  username: self.refs.username.value,
-        //  password: self.refs.password.value,
-        //}),
-
       })
       .then(response=> {
 
         if (response.ok) {
           console.log("ok");
             console.log("response status : " +response.status );
-          //
-          //
-          // var contentType = response.headers.get("content-type");
-          //   console.log("response headers content-type: " +contentType );
-          // if(contentType && contentType.indexOf("application/json") !== -1) {
-          //   return response.json().then(function(json) {
-          //     // process your JSON further
-          //     console.log("response json : " +json );
-          //
-          //     //var headers = response.getAllResponseHeaders().toLowerCase();
-          //     //document.cookies = 'JSESSIONID=523E9D99A5B6B208CA8623EE1BF352D4; Path=/';
-          //     console.log(response.headers.get('set-cookies'));
-          //   });
-          // } else {
-          //   console.log("Oops, we haven't got JSON!");
-          // }
-          //return response.json()
           window.location.href = '/menu';
         } else {
           console.log("It is not ok");
@@ -76,38 +58,18 @@ class Login extends React.Component {
 
         }
       })
-      // .then(function(body) {
-      //   window.location.href = '/menu';
-      // });
-      // .then(function (data) {
-      //   console.log('Request succeeded with JSON response', data);
-      // })
-      // .catch(function (error) {
-      //   console.log('Request failed', error);
-      // })
-      // .then(function(response) {
-      //   console.log("response status : " +response.status );
-      //   if (response.ok) {
-      //     console.log("ok");
-      //     return response.json()
-      //   } else {
-      //     console.log("It is not ok");
-      //
-      //   }
-      // }).then(function(body) {
-      //   window.location.href = '/menu';
-      // });
   }
 
   render() {
+    const { intl, selectedLocale } = this.props;
     return (
       <div>
         <form className="navbar-form navbar-left" onSubmit={this.onSubmit}>
           <div className="form-group">
             <label >{this.state.error}</label><br />
-            <input type="text" className="form-control" placeholder="Username" ref="username"/><br />
-            <input type="password" className="form-control" placeholder="Password" ref="password"/><br />
-            <button type="submit" className="btn btn-default">Submit</button>
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'username' })} ref="username"/><br />
+            <input type="password" className="form-control" placeholder={intl.formatMessage({ id: 'password' })} ref="password"/><br />
+            <button type="submit" className="btn btn-default">{intl.formatMessage({ id: 'login.login' })}</button>
           </div>
         </form>
       </div>
@@ -115,4 +77,10 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ selectedLocale }, dispatch);
+}
+Login.propTypes = {
+  intl: intlShape.isRequired
+};
+export default injectIntl(connect(null, mapDispatchToProps)(Login));

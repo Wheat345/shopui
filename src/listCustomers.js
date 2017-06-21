@@ -2,13 +2,18 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
+import { bindActionCreators } from 'redux'
+import {IntlProvider, addLocaleData, FormattedMessage, intlShape, injectIntl, defineMessages } from 'react-intl';
+import { connect } from 'react-redux';
+import { selectedLocale } from './actions/index';
+
 // Set of selected ids to be removing.
 var listOfSelectedId = new Set();
 
 class listCustomers extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     //set original data
     this.state = {
        data: [],
@@ -101,6 +106,7 @@ class listCustomers extends React.Component {
     const options = {
       afterDeleteRow: this.onAfterDeleteRow  // A hook for after droping rows.
     };
+    const { intl, selectedLocale } = this.props;
     return (
       <div>
         <BootstrapTable data={ this.state.data } cellEdit={ cellEditProp } selectRow={ selectRowProp }
@@ -108,15 +114,24 @@ class listCustomers extends React.Component {
                         options={ options }
                         exportCSV={ true }>
             <TableHeaderColumn dataField={"customerid"} isKey={true} >ID</TableHeaderColumn>
-            <TableHeaderColumn dataField={"email"}>email</TableHeaderColumn>
-            <TableHeaderColumn dataField={"gender"}>gender</TableHeaderColumn>
-            <TableHeaderColumn dataField={"location"}>location</TableHeaderColumn>
-            <TableHeaderColumn dataField={"status"}>status</TableHeaderColumn>
-            <TableHeaderColumn dataField={"type"} >type</TableHeaderColumn>
-            <TableHeaderColumn dataField={"description"} >description</TableHeaderColumn>
+            <TableHeaderColumn dataField={"email"}>{intl.formatMessage({ id: 'customer.email' })}</TableHeaderColumn>
+            <TableHeaderColumn dataField={"gender"}>{intl.formatMessage({ id: 'customer.gender' })}</TableHeaderColumn>
+            <TableHeaderColumn dataField={"location"}>{intl.formatMessage({ id: 'customer.location' })}</TableHeaderColumn>
+            <TableHeaderColumn dataField={"status"}>{intl.formatMessage({ id: 'customer.status' })}</TableHeaderColumn>
+            <TableHeaderColumn dataField={"type"} >{intl.formatMessage({ id: 'customer.type' })}</TableHeaderColumn>
+            <TableHeaderColumn dataField={"description"} >{intl.formatMessage({ id: 'customer.description' })}</TableHeaderColumn>
         </BootstrapTable>
       </div>
     );
   }
 }
-export default listCustomers;
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ selectedLocale }, dispatch);
+}
+
+listCustomers.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(connect(null, mapDispatchToProps)(listCustomers));

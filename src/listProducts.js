@@ -2,13 +2,17 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
+import { bindActionCreators } from 'redux'
+import {IntlProvider, addLocaleData, FormattedMessage, intlShape, injectIntl, defineMessages } from 'react-intl';
+import { connect } from 'react-redux';
+import { selectedLocale } from './actions/index';
 // Set of selected ids to be removing.
 var listOfSelectedId = new Set();
 
 class listProducts extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     //set original data
     this.state = {
        data: [],
@@ -101,6 +105,7 @@ class listProducts extends React.Component {
     const options = {
       afterDeleteRow: this.onAfterDeleteRow  // A hook for after droping rows.
     };
+    const { intl, selectedLocale } = this.props;
     return (
       <div>
         <BootstrapTable data={ this.state.data } cellEdit={ cellEditProp } selectRow={ selectRowProp }
@@ -108,15 +113,21 @@ class listProducts extends React.Component {
                         options={ options }
                         exportCSV={ true }>
             <TableHeaderColumn dataField={"productid"} isKey={true} >ID</TableHeaderColumn>
-            <TableHeaderColumn dataField={"name"}>name</TableHeaderColumn>
-            <TableHeaderColumn dataField={"catalog"}>catalog</TableHeaderColumn>
-            <TableHeaderColumn dataField={"format"}>format</TableHeaderColumn>
-            <TableHeaderColumn dataField={"cost"}>cost</TableHeaderColumn>
-            <TableHeaderColumn dataField={"sellprice"} >sell price</TableHeaderColumn>
-            <TableHeaderColumn dataField={"description"} >description</TableHeaderColumn>
+            <TableHeaderColumn dataField={"name"}>{intl.formatMessage({ id: 'prodcut.name' })}</TableHeaderColumn>
+            <TableHeaderColumn dataField={"catalog"}>{intl.formatMessage({ id: 'prodcut.catalog' })}</TableHeaderColumn>
+            <TableHeaderColumn dataField={"format"}>{intl.formatMessage({ id: 'prodcut.format' })}</TableHeaderColumn>
+            <TableHeaderColumn dataField={"cost"}>{intl.formatMessage({ id: 'prodcut.cost' })}</TableHeaderColumn>
+            <TableHeaderColumn dataField={"sellprice"} >{intl.formatMessage({ id: 'prodcut.sellprice' })}</TableHeaderColumn>
+            <TableHeaderColumn dataField={"description"} >{intl.formatMessage({ id: 'prodcut.description' })}</TableHeaderColumn>
         </BootstrapTable>
       </div>
     );
   }
 }
-export default listProducts;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ selectedLocale }, dispatch);
+}
+listProducts.propTypes = {
+  intl: intlShape.isRequired
+};
+export default injectIntl(connect(null, mapDispatchToProps)(listProducts));

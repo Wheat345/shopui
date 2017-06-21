@@ -1,9 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { bindActionCreators } from 'redux'
+import {IntlProvider, addLocaleData, FormattedMessage, intlShape, injectIntl, defineMessages } from 'react-intl';
+import { connect } from 'react-redux';
+import { selectedLocale } from './actions/index';
 
 class CreateCustomer extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { user: {} };
     this.onSubmit = this.handleSubmit.bind(this);
   }
@@ -42,19 +46,20 @@ class CreateCustomer extends React.Component {
   }
 
   render() {
+    const { intl, selectedLocale } = this.props;
     return (
       <div>
         <form className="navbar-form navbar-left" onSubmit={this.onSubmit}>
           <div className="form-group">
-              <input type="text" className="form-control" placeholder="firstname" ref="firstname"/><br />
-              <input type="text" className="form-control" placeholder="lastname" ref="lastname"/><br />
-              <input type="text" className="form-control" placeholder="email" ref="email"/><br />
-              <input type="text" className="form-control" placeholder="gender" ref="gender"/><br />
-              <input type="text" className="form-control" placeholder="location" ref="location"/><br />
-              <input type="text" className="form-control" placeholder="status" ref="status"/><br />
-              <input type="text" className="form-control" placeholder="type" ref="type"/><br />
-              <input type="text" className="form-control" placeholder="description" ref="description"/><br />
-              <button type="submit" className="btn btn-default">Submit</button>
+              <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'customer.firstname' })} ref="firstname"/><br />
+              <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'customer.lastname' })} ref="lastname"/><br />
+              <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'customer.email' })} ref="email"/><br />
+              <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'customer.gender' })} ref="gender"/><br />
+              <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'customer.location' })} ref="location"/><br />
+              <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'customer.status' })} ref="status"/><br />
+              <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'customer.type' })} ref="type"/><br />
+              <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'customer.description' })} ref="description"/><br />
+              <button type="submit" className="btn btn-default">{intl.formatMessage({ id: 'submit' })}</button>
           </div>
         </form>
       </div>
@@ -62,4 +67,14 @@ class CreateCustomer extends React.Component {
   }
 }
 
-export default CreateCustomer;
+//export default Menu
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ selectedLocale }, dispatch);
+}
+
+CreateCustomer.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(connect(null, mapDispatchToProps)(CreateCustomer));
+//export default CreateCustomer;

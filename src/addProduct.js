@@ -1,9 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { bindActionCreators } from 'redux'
+import {IntlProvider, addLocaleData, FormattedMessage, intlShape, injectIntl, defineMessages } from 'react-intl';
+import { connect } from 'react-redux';
+import { selectedLocale } from './actions/index';
 
 class AddProduct extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { user: {} };
     this.onSubmit = this.handleSubmit.bind(this);
   }
@@ -41,22 +45,28 @@ class AddProduct extends React.Component {
   }
 
   render() {
+    const { intl, selectedLocale } = this.props;
     return (
       <div>
         <form className="navbar-form navbar-left" onSubmit={this.onSubmit}>
           <div className="form-group">
-            <input type="text" className="form-control" placeholder="name" ref="name"/><br />
-            <input type="text" className="form-control" placeholder="catalog" ref="catalog"/><br />
-            <input type="text" className="form-control" placeholder="format" ref="format"/><br />
-            <input type="text" className="form-control" placeholder="cost" ref="cost"/><br />
-            <input type="text" className="form-control" placeholder="sellprice" ref="sellprice"/><br />
-            <input type="text" className="form-control" placeholder="description" ref="description"/><br />
-            <input type="submit" className="btn btn-default"/>
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'prodcut.name' })} ref="name"/><br />
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'prodcut.catalog' })} ref="catalog"/><br />
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'prodcut.format' })} ref="format"/><br />
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'prodcut.cost' })} ref="cost"/><br />
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'prodcut.sellprice' })} ref="sellprice"/><br />
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'prodcut.description' })} ref="description"/><br />
+            <button type="submit" className="btn btn-default">{intl.formatMessage({ id: 'submit' })}</button>
           </div>
         </form>
       </div>
     );
   }
 }
-
-export default AddProduct;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ selectedLocale }, dispatch);
+}
+AddProduct.propTypes = {
+  intl: intlShape.isRequired
+};
+export default injectIntl(connect(null, mapDispatchToProps)(AddProduct));

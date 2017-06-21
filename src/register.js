@@ -1,11 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { bindActionCreators } from 'redux'
+import {IntlProvider, addLocaleData, FormattedMessage, intlShape, injectIntl, defineMessages } from 'react-intl';
+import { connect } from 'react-redux';
+import { selectedLocale } from './actions/index';
 
 class Register extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { user: {},
-                   //error: 'hahaha'
                   };
     this.onSubmit = this.handleSubmit.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,11 +46,6 @@ class Register extends React.Component {
         //credentials: 'include',
         //credentials: 'same-origin',
         body: JSON.stringify(details)
-        //body: JSON.stringify({
-        //  username: self.refs.username.value,
-        //  password: self.refs.password.value,
-        //}),
-
       })
       .then(response => {
 
@@ -59,54 +57,30 @@ class Register extends React.Component {
                 error : 'User already exist, please register by different email address.'
               });
               console.log("user exist");
-              //window.location.href = '/register';
             }
             else {
               window.location.href = '/menu';
             }
-
           });
         } else {
           console.log("It is not ok");
 
         }
         })
-        // .then(function(body) {
-        //   window.location.href = '/menu';
-        // });
-      // }).then(response => response.json())
-      //     .then(response => console.log("asfasfasdffdsf.................." +response));
-      // .then(function (data) {
-      //   console.log('Request succeeded with JSON response', data);
-      // })
-      // .catch(function (error) {
-      //   console.log('Request failed', error);
-      // })
-      // .then(function(response) {
-      //   console.log("response status : " +response.status );
-      //   if (response.ok) {
-      //     console.log("ok");
-      //     return response.json()
-      //   } else {
-      //     console.log("It is not ok");
-      //
-      //   }
-      // }).then(function(body) {
-      //   window.location.href = '/menu';
-      // });
   }
 
   render() {
+    const { intl, selectedLocale } = this.props;
     return (
       <div>
         <form className="navbar-form navbar-left" onSubmit={this.onSubmit}>
           <div className="form-group">
             <label >{this.state.error}</label><br />
-            <input type="text" className="form-control" placeholder="Username" ref="username"/><br />
-            <input type="text" className="form-control" placeholder="Email" ref="email"/><br />
-            <input type="password" className="form-control" placeholder="Password" ref="password"/><br />
-            <input type="text" className="form-control" placeholder="Enabled" ref="enabled"/><br />
-            <button type="submit" className="btn btn-default">Submit</button>
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'username' })} ref="username"/><br />
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'email' })} ref="email"/><br />
+            <input type="password" className="form-control" placeholder={intl.formatMessage({ id: 'password' })} ref="password"/><br />
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'register.enabled' })} ref="enabled"/><br />
+            <button type="submit" className="btn btn-default">{intl.formatMessage({ id: 'submit' })}</button>
           </div>
         </form>
       </div>
@@ -114,4 +88,10 @@ class Register extends React.Component {
   }
 }
 
-export default Register;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ selectedLocale }, dispatch);
+}
+Register.propTypes = {
+  intl: intlShape.isRequired
+};
+export default injectIntl(connect(null, mapDispatchToProps)(Register));

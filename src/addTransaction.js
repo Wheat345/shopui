@@ -1,9 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { bindActionCreators } from 'redux'
+import {IntlProvider, addLocaleData, FormattedMessage, intlShape, injectIntl, defineMessages } from 'react-intl';
+import { connect } from 'react-redux';
+import { selectedLocale } from './actions/index';
 
 class AddTransaction extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { user: {} };
     this.onSubmit = this.handleSubmit.bind(this);
   }
@@ -40,16 +44,17 @@ class AddTransaction extends React.Component {
   }
 
   render() {
+    const { intl, selectedLocale } = this.props;
     return (
       <div>
         <form className="navbar-form navbar-left" onSubmit={this.onSubmit}>
           <div className="form-group">
-            <input type="text" className="form-control" placeholder="customerid" ref="customerid"/><br />
-            <input type="text" className="form-control" placeholder="productids" ref="productids"/><br />
-            <input type="text" className="form-control" placeholder="created" ref="created"/><br />
-            <input type="text" className="form-control" placeholder="paymentmethod" ref="paymentmethod"/><br />
-            <input type="text" className="form-control" placeholder="details" ref="details"/><br />
-            <input type="submit" className="btn btn-default"/>
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'transaction.customerid' })} ref="customerid"/><br />
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'transaction.productids' })} ref="productids"/><br />
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'transaction.created' })} ref="created"/><br />
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'transaction.paymentmethod' })} ref="paymentmethod"/><br />
+            <input type="text" className="form-control" placeholder={intl.formatMessage({ id: 'transaction.details' })} ref="details"/><br />
+            <button type="submit" className="btn btn-default">{intl.formatMessage({ id: 'submit' })}</button>
           </div>
         </form>
       </div>
@@ -57,4 +62,10 @@ class AddTransaction extends React.Component {
   }
 }
 
-export default AddTransaction;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ selectedLocale }, dispatch);
+}
+AddTransaction.propTypes = {
+  intl: intlShape.isRequired
+};
+export default injectIntl(connect(null, mapDispatchToProps)(AddTransaction));
