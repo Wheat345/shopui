@@ -37,6 +37,9 @@ class listTransactions extends React.Component {
   }
 
   afterSaveCell(row, cellName, cellValue) {
+        if(row.created.length ==16) {//react-bootstrap-table default ignore seconds (when seconds is 00), so add ':00' after the date
+              row.created = row.created + ':00';
+        };
     fetch('http://localhost:8080/rest/updatetransaction', {
         credentials: 'include',
         method: 'PUT',
