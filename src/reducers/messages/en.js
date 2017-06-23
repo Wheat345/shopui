@@ -51,5 +51,6 @@ export const ENGLISH_TRANSLATION = {
       'transaction.created': 'created',
       'transaction.paymentmethod': 'payment method',
       'transaction.details': 'details',
+      'transaction.listname.productids': 'product ids',
   }
 };

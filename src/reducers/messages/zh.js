@@ -51,5 +51,6 @@ export const CHINESE_TRANSLATION = {
       'transaction.created': '创建时间',
       'transaction.paymentmethod': '付款方式',
       'transaction.details': '细节',
+      'transaction.listname.productids': '产品 ids',
   }
 };

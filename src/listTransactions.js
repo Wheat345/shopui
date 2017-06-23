@@ -115,7 +115,7 @@ class listTransactions extends React.Component {
                         exportCSV={ true }>
             <TableHeaderColumn dataField={"transactionid"} isKey={true} >ID</TableHeaderColumn>
             <TableHeaderColumn dataField={"customerid"}>{intl.formatMessage({ id: 'transaction.customerid' })}</TableHeaderColumn>
-            <TableHeaderColumn dataField={"productids"}>{intl.formatMessage({ id: 'transaction.productids' })}</TableHeaderColumn>
+            <TableHeaderColumn dataField={"productids"}>{intl.formatMessage({ id: 'transaction.listname.productids' })}</TableHeaderColumn>
             <TableHeaderColumn dataField={"created"}  editable={ { type: 'datetime' }}>{intl.formatMessage({ id: 'transaction.created' })}</TableHeaderColumn>
             <TableHeaderColumn dataField={"paymentmethod"}>{intl.formatMessage({ id: 'transaction.paymentmethod' })}</TableHeaderColumn>
             <TableHeaderColumn dataField={"details"} >{intl.formatMessage({ id: 'transaction.details' })}</TableHeaderColumn>
