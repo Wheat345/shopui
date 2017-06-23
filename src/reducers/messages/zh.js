@@ -47,7 +47,7 @@ export const CHINESE_TRANSLATION = {
       'prodcut.description': '描述',
       //transaction
       'transaction.customerid': '顾客 id',
-      'transaction.productids': '产品 ids',
+      'transaction.productids': '产品 ids(请用逗号分隔每个ID)',
       'transaction.created': '创建时间',
       'transaction.paymentmethod': '付款方式',
       'transaction.details': '细节',
