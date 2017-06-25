@@ -41,8 +41,7 @@ class Logout extends React.Component {
               //animation: animation(json)
             });
           });
-
-
+          window.localStorage.clear();//reset default language.
       }
 
   render() {

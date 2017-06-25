@@ -12,29 +12,22 @@ export const localeReducer = (state = initialState, action) => {
     case 'LOCALE_SELECTED':
     switch (action.locale) {
       case 'fr':
-        var lang = JSON.stringify(FRENCH_TRANSLATION.lang);
-        var messages = JSON.stringify(FRENCH_TRANSLATION.messages);
-        window.localStorage.setItem('langpersist', lang);
-        window.localStorage.setItem('messagespersist', messages);
-            console.log("abc in fr is........................."  + window.localStorage.getItem('lang'));
+        window.localStorage.setItem('langpersist', JSON.stringify(FRENCH_TRANSLATION.lang));
+        window.localStorage.setItem('messagespersist', JSON.stringify(FRENCH_TRANSLATION.messages));
         return { initialState, lang: FRENCH_TRANSLATION.lang, messages: FRENCH_TRANSLATION.messages };
       case 'zh':
-        var lang = JSON.stringify(CHINESE_TRANSLATION.lang);
-        var messages = JSON.stringify(CHINESE_TRANSLATION.messages);
-        window.localStorage.setItem('langpersist', lang);
-        window.localStorage.setItem('messagespersist', messages);
+        window.localStorage.setItem('langpersist', JSON.stringify(CHINESE_TRANSLATION.lang));
+        window.localStorage.setItem('messagespersist', JSON.stringify(CHINESE_TRANSLATION.messages));
         return { initialState, lang: CHINESE_TRANSLATION.lang, messages: CHINESE_TRANSLATION.messages };
       default:
-        var lang = JSON.stringify(ENGLISH_TRANSLATION.lang);
-        var messages = JSON.stringify(ENGLISH_TRANSLATION.messages);
-        window.localStorage.setItem('langpersist', lang);
-        window.localStorage.setItem('messagespersist', messages);
+        window.localStorage.setItem('langpersist', JSON.stringify(ENGLISH_TRANSLATION.lang));
+        window.localStorage.setItem('messagespersist', JSON.stringify(ENGLISH_TRANSLATION.messages));
         return { initialState, lang: ENGLISH_TRANSLATION.lang, messages: ENGLISH_TRANSLATION.messages };
     }
     default:
       if (window.localStorage.getItem('langpersist') === null) {
-        window.localStorage.setItem('langpersist', state.lang);
-        window.localStorage.setItem('messagespersist', state.messages);
+        window.localStorage.setItem('langpersist', JSON.stringify(ENGLISH_TRANSLATION.lang));
+        window.localStorage.setItem('messagespersist', JSON.stringify(ENGLISH_TRANSLATION.messages));
         return state;
       }else {
           var lang = window.localStorage.getItem('langpersist');
