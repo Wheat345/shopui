@@ -48,7 +48,7 @@ class Login extends React.Component {
         if (response.ok) {
           console.log("ok");
             console.log("response status : " +response.status );
-          window.location.href = '/menu';
+          window.location.href = '/listCustomers';
         } else {
           console.log("It is not ok");
 
