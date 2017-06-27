@@ -59,7 +59,7 @@ class Register extends React.Component {
               console.log("user exist");
             }
             else {
-              window.location.href = '/menu';
+              window.location.href = '/login';
             }
           });
         } else {
