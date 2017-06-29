@@ -10,4 +10,5 @@ react-bootstrap-table
 node js
 webpack
 
+DEMO: http://168.235.146.2:3000
 
